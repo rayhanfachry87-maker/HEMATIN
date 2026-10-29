@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#10251c">
+  <meta name="description" content="HEMATIN, sistem cerdas untuk menghitung estimasi konsumsi listrik rumah tangga dan memberi rekomendasi penghematan berbasis aturan.">
+  <title>HEMATIN — Smart Electricity Saving Advisor</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="#home"><span class="brand-icon">H<span>+</span></span><span>HEMATIN<small>SMART ENERGY ADVISOR</small></span></a>
+  <nav><a href="#dashboard">Dashboard</a><a href="#devices">Perangkat</a><a href="#recommendations">Rekomendasi</a></nav>
+  <a class="top-cta" href="#devices">Mulai hitung <span>↗</span></a>
+</header>
+<main id="home">
+  <section class="hero wrap">
+    <div class="hero-copy">
+      <div class="eyebrow"><i></i> RULE-BASED SMART SYSTEM</div>
+      <h1>Hemat listrik.<br><em>Lebih sadar.</em></h1>
+      <p>HEMATIN membantu memperkirakan konsumsi listrik rumah tangga, menghitung estimasi biaya bulanan, dan menyusun saran penghematan berdasarkan aturan sederhana yang transparan.</p>
+      <div class="hero-actions"><a class="button primary" href="#devices">Mulai simulasi <span>↓</span></a><a class="text-link" href="#how">Cara kerja sistem ↗</a></div>
+      <div class="hero-note"><span class="pulse"></span> Perhitungan lokal di browser · Tanpa login</div>
+    </div>
+    <div class="hero-art">
+      <div class="sun"></div><div class="leaf leaf-a"></div><div class="leaf leaf-b"></div>
+      <div class="meter">
+        <div class="meter-head"><span>ENERGY SNAPSHOT</span><span class="live"><i></i> LIVE DEMO</span></div>
+        <div class="meter-main"><div><small>ESTIMASI KONSUMSI</small><strong id="heroKwh">— <small>kWh/bln</small></strong></div><div class="meter-symbol">ϟ</div></div>
+        <div class="meter-bars"><span style="height:28%"></span><span style="height:45%"></span><span style="height:37%"></span><span style="height:63%"></span><span style="height:52%"></span><span style="height:76%"></span><span style="height:60%"></span><span style="height:91%"></span><span style="height:72%"></span><span style="height:48%"></span><span style="height:65%"></span><span style="height:39%"></span></div>
+        <div class="meter-foot"><span>SIMULASI PERANGKAT RUMAH</span><span>30 HARI</span></div>
+      </div>
+      <div class="floating-tip"><span>↘</span><div><b>Small habits, real impact</b><small>Mulai dari kebiasaan harian</small></div></div>
+      <div class="art-caption">HEMATIN / ENERGY INSIGHT</div>
+    </div>
+  </section>
+
+  <section class="stats wrap" id="dashboard">
+    <div class="stat"><small>TOTAL PERANGKAT</small><strong id="deviceCount">0</strong><span>perangkat tercatat</span></div>
+    <div class="stat"><small>KONSUMSI BULANAN</small><strong><b id="totalKwh">0.00</b> <i>kWh</i></strong><span>estimasi 30 hari</span></div>
+    <div class="stat"><small>ESTIMASI BIAYA</small><strong id="totalCost">Rp0</strong><span>berdasarkan tarif yang dipilih</span></div>
+    <div class="stat highlight"><small>POTENSI HEMAT</small><strong id="potentialSave">Rp0</strong><span>simulasi dari rekomendasi</span></div>
+  </section>
+
+  <section class="work-area wrap" id="devices">
+    <div class="section-heading">
+      <div><span class="kicker">01 / INPUT DATA</span><h2>Kenali pemakaian<br><em>listrikmu.</em></h2></div>
+      <p>Masukkan perangkat, daya, jumlah unit, dan durasi pemakaian rata-rata per hari. Ubah contoh data sesuai kondisi rumahmu.</p>
+    </div>
+    <div class="workspace">
+      <div class="device-panel panel">
+        <div class="panel-heading"><div><h3>Daftar perangkat</h3><p>Tambahkan perangkat yang ingin dihitung.</p></div><span class="counter" id="listCounter">0 ITEM</span></div>
+        <form id="deviceForm" class="device-form">
+          <label>Nama perangkat<input id="deviceName" placeholder="Contoh: Lampu LED" maxlength="45" required></label>
+          <div class="form-row">
+            <label>Daya (W)<input id="deviceWatt" type="number" min="1" max="10000" placeholder="10" required></label>
+            <label>Jumlah unit<input id="deviceQty" type="number" min="1" max="100" value="1" required></label>
+            <label>Jam/hari<input id="deviceHours" type="number" min="0.1" max="24" step="0.1" placeholder="5" required></label>
+          </div>
+          <button class="button primary add-button" type="submit">+ Tambah perangkat</button>
+        </form>
+        <div class="device-list" id="deviceList"><div class="empty-state"><span>ϟ</span><b>Belum ada perangkat</b><small>Tambahkan perangkat atau muat contoh data.</small></div></div>
+        <div class="list-actions"><button type="button" class="button subtle" id="loadExample">Muat contoh data</button><button type="button" class="clear-button" id="clearAll">Hapus semua</button></div>
+      </div>
+      <aside class="settings-column">
+        <div class="panel tariff-panel"><span class="kicker">02 / PENGATURAN</span><h3>Tarif listrik</h3><p>Gunakan tarif per kWh dari tagihan atau masukkan asumsi untuk simulasi.</p>
+          <label class="field-label" for="tariff">Tarif (Rp/kWh)</label><div class="tariff-input"><span>Rp</span><input id="tariff" type="number" min="1" max="100000" value="1444.70" step="0.01"></div>
+          <small class="helper">Nilai awal hanya contoh. Sesuaikan dengan golongan tarif pada tagihanmu.</small>
+          <div class="days-row"><span>Periode perhitungan</span><b>30 hari</b></div>
+        </div>
+        <div class="panel rule-panel" id="how"><div class="rule-icon">⌘</div><span class="kicker">CARA KERJA</span><h3>Aturan yang mudah dipahami</h3><p>HEMATIN menggunakan <b>rule-based system</b>: input dihitung, lalu dibandingkan dengan aturan sederhana untuk menghasilkan saran.</p><div class="rule-step"><i>01</i><span>Hitung kWh dan estimasi biaya</span></div><div class="rule-step"><i>02</i><span>Identifikasi pemakaian tinggi</span></div><div class="rule-step"><i>03</i><span>Berikan rekomendasi hemat</span></div></div>
+      </aside>
+    </div>
+  </section>
+
+  <section class="insight-section" id="recommendations"><div class="wrap">
+    <div class="section-heading insight-heading"><div><span class="kicker">03 / HASIL ANALISIS</span><h2>Saran kecil,<br><em>perubahan nyata.</em></h2></div><p>Rekomendasi dibuat dari aturan yang terlihat, bukan hasil diagnosis otomatis atau klaim AI generatif.</p></div>
+    <div class="insight-grid">
+      <div class="panel recommendation-panel"><div class="panel-heading"><div><h3>Rekomendasi penghematan</h3><p id="recommendationSubtitle">Tambahkan perangkat untuk melihat saran.</p></div><span class="spark">✳</span></div><div id="recommendationList" class="recommendation-list"><div class="empty-recs">Rekomendasi akan muncul setelah kamu memasukkan data perangkat.</div></div></div>
+      <div class="panel simulation-panel"><span class="kicker">SIMULASI SEBELUM / SESUDAH</span><h3>Kalau pemakaian dikurangi?</h3><p>Ilustrasi penghematan memakai estimasi pengurangan durasi yang disarankan sistem. Hasil aktual bisa berbeda.</p>
+        <div class="compare"><div><small>SEBELUM</small><strong id="beforeCost">Rp0</strong><span id="beforeEnergy">0 kWh/bln</span></div><div class="compare-arrow">→</div><div class="after"><small>SETELAH SIMULASI</small><strong id="afterCost">Rp0</strong><span id="afterEnergy">0 kWh/bln</span></div></div>
+        <div class="saving-line"><span>Estimasi penghematan</span><b id="savingPercent">0%</b></div><div class="saving-track"><span id="savingBar"></span></div><div class="saving-total"><small>POTENSI HEMAT / BULAN</small><strong id="savingAmount">Rp0</strong></div>
+        <p class="fineprint">Simulasi hanya memperkirakan pengurangan waktu pemakaian perangkat tertentu, bukan jaminan tagihan akan turun dengan nominal yang sama.</p>
+      </div>
+    </div>
+  </div></section>
+</main>
+<footer class="footer"><a class="brand" href="#home"><span class="brand-icon">H<span>+</span></span><span>HEMATIN<small>SMART ENERGY ADVISOR</small></span></a><p>Prototype sistem cerdas berbasis aturan untuk edukasi penghematan listrik rumah tangga.</p><small>© <span id="year">2026</span> HEMATIN · PROJECT PROTOTYPE</small></footer>
+<script src="script.js"></script>
+</body></html>
